@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Navigation from './sections/Navigation';
 import Hero from './sections/Hero';
 import Services from './sections/Services';
@@ -28,12 +29,15 @@ function HomePage() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/datenschutz" element={<Datenschutz />} />
-      <Route path="/impressum" element={<Impressum />} />
-      <Route path="/agb" element={<AGB />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/datenschutz" element={<Datenschutz />} />
+        <Route path="/impressum" element={<Impressum />} />
+        <Route path="/agb" element={<AGB />} />
+      </Routes>
+      <Analytics />
+    </>
   );
 }
 
