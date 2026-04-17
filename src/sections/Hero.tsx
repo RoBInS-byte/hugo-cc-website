@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [hasEnded, setHasEnded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -15,19 +16,70 @@ export default function Hero() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    
+
     video.play().catch(() => {});
   }, []);
 
-  const handleVideoToggle = () => {
+  // Listen for video end - pauses so it stays on last frame
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleEnded = () => {
+      setHasEnded(true);
+      video.pause();
+    };
+
+    video.addEventListener('ended', handleEnded);
+    return () => video.removeEventListener('ended', handleEnded);
+  }, []);
+
+  // Intersection Observer - pause when scrolled away, restart from beginning when visible again
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Video is visible again - always restart from beginning
+            video.currentTime = 0;
+            setHasEnded(false);
+            video.play().catch(() => {});
+          } else {
+            // Video scrolled out of view - pause it
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  // Toggle audio only
+  const handleAudioToggle = () => {
     const video = videoRef.current;
     if (!video) return;
 
     if (isMuted) {
+      // Turning audio ON
       video.muted = false;
       setIsMuted(false);
-      video.play().catch(() => {});
+
+      // If video already ended, restart it with sound
+      if (hasEnded || video.ended) {
+        video.currentTime = 0;
+        setHasEnded(false);
+        video.play().catch(() => {});
+      } else {
+        video.play().catch(() => {});
+      }
     } else {
+      // Turning audio OFF
       video.muted = true;
       setIsMuted(true);
     }
@@ -109,8 +161,8 @@ export default function Hero() {
               }`}
               style={{ transitionDelay: '0.5s' }}
             >
-              Wir sorgen für hygienische und gepflegte Räumlichkeiten 
-              in Pforzheim und Umgebung. Vertrauen Sie auf unsere Professionalität 
+              Wir sorgen für hygienische und gepflegte Räumlichkeiten
+              in Pforzheim und Umgebung. Vertrauen Sie auf unsere Professionalität
               und Leidenschaft für Sauberkeit.
             </p>
 
@@ -171,21 +223,21 @@ export default function Hero() {
                   src="/images/HugoMaskottechen.mp4"
                   muted={isMuted}
                   playsInline
-                  loop
                   autoPlay
+                  loop={false}
                   className="w-full max-w-[400px] h-auto block"
                 />
               </div>
-              
-              {/* Audio Toggle Button */}
+
+              {/* Audio Toggle Button - ONLY controls audio */}
               <button
-                onClick={handleVideoToggle}
+                onClick={handleAudioToggle}
                 className={`
                   absolute -bottom-4 left-1/2 transform -translate-x-1/2
                   flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm
                   transition-all duration-300 hover:scale-105 shadow-lg
-                  ${isMuted 
-                    ? 'bg-gradient-to-r from-hugo-gold to-yellow-500 text-hugo-navy hover:from-yellow-400 hover:to-yellow-300' 
+                  ${isMuted
+                    ? 'bg-gradient-to-r from-hugo-gold to-yellow-500 text-hugo-navy hover:from-yellow-400 hover:to-yellow-300'
                     : 'bg-hugo-teal text-white hover:bg-hugo-teal/90'}
                 `}
               >
@@ -201,7 +253,7 @@ export default function Hero() {
                   </>
                 )}
               </button>
-              
+
               {/* Decorative Elements */}
               <div className="absolute -top-4 -right-4 w-20 h-20 bg-hugo-gold/20 rounded-full blur-xl -z-10" />
               <div className="absolute -bottom-8 -left-4 w-16 h-16 bg-hugo-teal/20 rounded-full blur-xl -z-10" />
