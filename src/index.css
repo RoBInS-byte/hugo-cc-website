@@ -14,9 +14,9 @@
     --popover-foreground: 207 51% 21%;
     --primary: 207 51% 21%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 195 35% 50%;
+    --secondary: 197 54% 51%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 210 20% 94%;
+    --muted: 210 33% 97%;
     --muted-foreground: 207 30% 40%;
     --accent: 43 74% 52%;
     --accent-foreground: 207 51% 21%;
@@ -24,9 +24,17 @@
     --destructive-foreground: 0 0% 98%;
     --border: 210 20% 88%;
     --input: 210 20% 88%;
-    --ring: 195 35% 50%;
-    --radius: 0.625rem;
-    
+    --ring: 197 54% 51%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
     --hugo-navy: #0F2A3D;
     --hugo-teal: #3A9BC9;
     --hugo-gold: #D4AF37;
@@ -39,16 +47,16 @@
   * {
     @apply border-border;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Open Sans', sans-serif;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -59,47 +67,51 @@
   .bg-hugo-navy {
     background-color: var(--hugo-navy);
   }
-  
+
   .bg-hugo-teal {
     background-color: var(--hugo-teal);
   }
-  
+
   .bg-hugo-gold {
     background-color: var(--hugo-gold);
   }
-  
+
   .bg-hugo-light {
     background-color: var(--hugo-light);
   }
-  
+
   .text-hugo-navy {
     color: var(--hugo-navy);
   }
-  
+
   .text-hugo-teal {
     color: var(--hugo-teal);
   }
-  
+
   .text-hugo-gold {
     color: var(--hugo-gold);
   }
-  
+
   .border-hugo-navy {
     border-color: var(--hugo-navy);
   }
-  
+
   .border-hugo-teal {
     border-color: var(--hugo-teal);
   }
-  
+
+  .border-hugo-gold {
+    border-color: var(--hugo-gold);
+  }
+
   .shadow-hugo {
     box-shadow: 0 10px 40px -10px rgba(15, 42, 61, 0.2);
   }
-  
+
   .shadow-hugo-lg {
     box-shadow: 0 20px 60px -15px rgba(15, 42, 61, 0.3);
   }
-  
+
   @keyframes float {
     0%, 100% {
       transform: translateY(0);
@@ -108,11 +120,11 @@
       transform: translateY(-10px);
     }
   }
-  
+
   .animate-float {
     animation: float 4s ease-in-out infinite;
   }
-  
+
   .animate-float-delayed {
     animation: float 4s ease-in-out infinite;
     animation-delay: 2s;

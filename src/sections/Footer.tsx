@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Smartphone } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -34,7 +35,7 @@ export default function Footer() {
   return (
     <footer className="bg-hugo-navy text-white">
       {/* Main Footer */}
-      <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-20 py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
@@ -133,21 +134,21 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-20 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-white/50 text-sm">
-              © {currentYear} Hugo CC UG. Alle Rechte vorbehalten.
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/50">
+            <p>
+              &copy; {currentYear} Hugo CC UG. Alle Rechte vorbehalten.
             </p>
             <div className="flex gap-6">
-              <a href="/#/datenschutz" className="text-white/50 hover:text-white text-sm transition-colors">
+              <Link to="/datenschutz" className="hover:text-white transition-colors">
                 Datenschutz
-              </a>
-              <a href="/#/impressum" className="text-white/50 hover:text-white text-sm transition-colors">
+              </Link>
+              <Link to="/impressum" className="hover:text-white transition-colors">
                 Impressum
-              </a>
-              <a href="/#/agb" className="text-white/50 hover:text-white text-sm transition-colors">
+              </Link>
+              <Link to="/agb" className="hover:text-white transition-colors">
                 AGB
-              </a>
+              </Link>
             </div>
           </div>
         </div>

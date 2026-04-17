@@ -33,27 +33,42 @@ export default function WhyUs() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-white">
-      <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-20">
+    <section ref={sectionRef} className="py-20 bg-hugo-navy relative overflow-hidden">
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className={`inline-flex items-center gap-2 px-4 py-2 bg-hugo-teal/10 rounded-full mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <ThumbsUp className="w-4 h-4 text-hugo-teal" />
-            <span className="text-sm font-medium text-hugo-teal">Warum HUGO CC</span>
+          <div className={`flex items-center justify-center gap-2 mb-3 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <ThumbsUp className="w-5 h-5 text-hugo-teal" />
+            <span className="text-hugo-teal font-semibold text-sm uppercase tracking-wider">Warum HUGO CC</span>
           </div>
-          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-hugo-navy mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0.1s' }}>
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0.1s' }}>
             Das macht uns<span className="text-hugo-teal"> besonders</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {advantages.map((advantage, index) => (
-            <div key={index} className={`group relative bg-white rounded-2xl p-8 shadow-hugo hover:shadow-lg transition-all duration-500 hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: `${index * 0.1}s` }}>
-              <div className="w-16 h-16 bg-hugo-teal/10 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:bg-hugo-teal group-hover:scale-110">
+            <div 
+              key={index} 
+              className={`group relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 transition-all duration-500 hover:-translate-y-2 hover:bg-white/20 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} 
+              style={{ transitionDelay: `${index * 0.1}s` }}
+            >
+              <div className="w-14 h-14 rounded-2xl bg-hugo-teal/20 flex items-center justify-center mb-6 transition-all duration-300 group-hover:bg-hugo-teal group-hover:scale-110">
                 <advantage.icon className="w-8 h-8 text-hugo-teal transition-colors duration-300 group-hover:text-white" />
               </div>
-              <h3 className="text-xl font-bold text-hugo-navy mb-3 group-hover:text-hugo-teal transition-colors">{advantage.title}</h3>
-              <p className="text-hugo-navy/60 text-sm leading-relaxed">{advantage.description}</p>
-              <div className="absolute top-0 right-0 w-20 h-20 bg-hugo-gold/5 rounded-bl-full -z-10 transition-all duration-300 group-hover:bg-hugo-gold/10" />
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-hugo-teal transition-colors">{advantage.title}</h3>
+              <p className="text-white/60 text-sm leading-relaxed">{advantage.description}</p>
             </div>
           ))}
         </div>

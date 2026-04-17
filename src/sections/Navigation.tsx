@@ -32,13 +32,13 @@ export default function Navigation() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'py-2 bg-white/90 backdrop-blur-lg shadow-lg'
-            : 'py-3 bg-transparent'
+            ? 'py-3 bg-white/95 backdrop-blur-md shadow-lg'
+            : 'py-5 bg-transparent'
         }`}
       >
-        <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a
@@ -52,7 +52,7 @@ export default function Navigation() {
               <img 
                 src="/images/logo-hugo-cc-new.png" 
                 alt="Hugo CC UG Logo" 
-                className="h-12 sm:h-14 lg:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                className="h-14 w-auto object-contain rounded-lg"
               />
             </a>
 
@@ -62,14 +62,11 @@ export default function Navigation() {
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.href)}
-                  className={`relative text-sm font-medium transition-colors duration-300 group ${
-                    isScrolled
-                      ? 'text-hugo-navy hover:text-hugo-teal'
-                      : 'text-hugo-navy hover:text-hugo-teal'
+                  className={`font-medium transition-colors hover:text-hugo-teal ${
+                    isScrolled ? 'text-hugo-navy' : 'text-white'
                   }`}
                 >
                   {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-hugo-teal transition-all duration-300 group-hover:w-full" />
                 </button>
               ))}
             </div>
@@ -78,23 +75,31 @@ export default function Navigation() {
             <div className="hidden md:flex items-center gap-4">
               <a href="tel:+4972315694554">
                 <Button
-                  className="bg-hugo-navy hover:bg-hugo-teal text-white transition-all duration-300 gap-2"
+                  className={`flex items-center gap-2 transition-all duration-300 ${
+                    isScrolled
+                      ? 'bg-hugo-teal hover:bg-hugo-teal/90 text-white'
+                      : 'bg-white hover:bg-white/90 text-hugo-navy'
+                  }`}
                 >
                   <Phone className="w-4 h-4" />
-                  <span>Anrufen</span>
+                  <span className="hidden lg:inline">Anrufen</span>
                 </Button>
               </a>
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2"
+              className={`md:hidden p-2 rounded-lg transition-colors ${
+                isScrolled 
+                  ? 'text-hugo-navy hover:bg-gray-100' 
+                  : 'text-white hover:bg-white/10'
+              }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? (
-                <X className="w-6 h-6 text-hugo-navy" />
+                <X className="w-6 h-6" />
               ) : (
-                <Menu className="w-6 h-6 text-hugo-navy" />
+                <Menu className="w-6 h-6" />
               )}
             </button>
           </div>
@@ -118,7 +123,7 @@ export default function Navigation() {
             </button>
           ))}
           <a href="tel:+4972315694554">
-            <Button className="bg-hugo-navy hover:bg-hugo-teal text-white gap-2 mt-4">
+            <Button className="bg-hugo-teal hover:bg-hugo-teal/90 text-white gap-2 mt-4">
               <Phone className="w-5 h-5" />
               <span>Anrufen</span>
             </Button>

@@ -68,12 +68,12 @@ export default function Contact() {
   };
 
   return (
-    <section id="kontakt" ref={sectionRef} className="py-24 bg-hugo-light">
-      <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-20">
+    <section id="kontakt" ref={sectionRef} className="py-20 bg-hugo-light">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className={`inline-flex items-center gap-2 px-4 py-2 bg-hugo-teal/10 rounded-full mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <Mail className="w-4 h-4 text-hugo-teal" />
-            <span className="text-sm font-medium text-hugo-teal">Kontakt</span>
+          <div className={`flex items-center justify-center gap-2 mb-3 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <Mail className="w-5 h-5 text-hugo-teal" />
+            <span className="text-hugo-teal font-semibold text-sm uppercase tracking-wider">Kontakt</span>
           </div>
           <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-hugo-navy mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0.1s' }}>
             Lassen Sie uns<span className="text-hugo-teal"> sprechen</span>
@@ -81,7 +81,8 @@ export default function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          <div className={`bg-white rounded-2xl p-8 lg:p-10 shadow-hugo transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`} style={{ transitionDelay: '0.3s' }}>
+          {/* Form */}
+          <div className={`bg-white rounded-2xl shadow-xl p-8 lg:p-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`} style={{ transitionDelay: '0.3s' }}>
             <h3 className="text-2xl font-bold text-hugo-navy mb-6">Schreiben Sie uns</h3>
 
             {isSubmitted ? (
@@ -90,43 +91,45 @@ export default function Contact() {
                   <CheckCircle2 className="w-10 h-10 text-hugo-teal" />
                 </div>
                 <h4 className="text-xl font-bold text-hugo-navy mb-2">Vielen Dank!</h4>
-                <p className="text-hugo-navy/60">Wir haben Ihre Nachricht erhalten und melden uns umgehend bei Ihnen.</p>
+                <p className="text-gray-500">Wir haben Ihre Nachricht erhalten und melden uns umgehend bei Ihnen.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-hugo-navy font-medium">Name *</Label>
-                    <Input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Ihr Name" required disabled={isSubmitting} className="border-hugo-navy/20 focus:border-hugo-teal focus:ring-hugo-teal/20" />
+                    <Input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Ihr Name" required disabled={isSubmitting} className="bg-hugo-light border-0 focus:ring-2 focus:ring-hugo-teal" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-hugo-navy font-medium">E-Mail *</Label>
-                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="ihre@email.de" required disabled={isSubmitting} className="border-hugo-navy/20 focus:border-hugo-teal focus:ring-hugo-teal/20" />
+                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="ihre@email.de" required disabled={isSubmitting} className="bg-hugo-light border-0 focus:ring-2 focus:ring-hugo-teal" />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="text-hugo-navy font-medium">Telefon</Label>
-                  <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="07231 5694554" disabled={isSubmitting} className="border-hugo-navy/20 focus:border-hugo-teal focus:ring-hugo-teal/20" />
+                  <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="07231 5694554" disabled={isSubmitting} className="bg-hugo-light border-0 focus:ring-2 focus:ring-hugo-teal" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message" className="text-hugo-navy font-medium">Nachricht *</Label>
-                  <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="Wie können wir Ihnen helfen?" required rows={5} disabled={isSubmitting} className="border-hugo-navy/20 focus:border-hugo-teal focus:ring-hugo-teal/20 resize-none" />
+                  <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="Wie können wir Ihnen helfen?" required rows={5} disabled={isSubmitting} className="bg-hugo-light border-0 focus:ring-2 focus:ring-hugo-teal resize-none" />
                 </div>
                 {submitError && (
                   <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
                     <p className="text-red-600 text-sm">{submitError}</p>
                   </div>
                 )}
-                <Button type="submit" disabled={isSubmitting} className="w-full bg-hugo-navy hover:bg-hugo-teal text-white py-6 text-lg font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                <Button type="submit" disabled={isSubmitting} className="w-full bg-hugo-navy hover:bg-hugo-teal text-white py-6 text-lg font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg">
                   {isSubmitting ? (<><Loader2 className="w-5 h-5 mr-2 animate-spin" />Wird gesendet...</>) : (<><Send className="w-5 h-5 mr-2" />Nachricht senden</>)}
                 </Button>
-                <p className="text-xs text-hugo-navy/50 text-center">Mit dem Absenden stimmen Sie unserer Datenschutzerklärung zu.</p>
+                <p className="text-xs text-gray-400 text-center">Mit dem Absenden stimmen Sie unserer Datenschutzerklärung zu.</p>
               </form>
             )}
           </div>
 
+          {/* Contact Info */}
           <div className={`space-y-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`} style={{ transitionDelay: '0.4s' }}>
-            <div className="relative rounded-2xl overflow-hidden shadow-hugo mb-8">
+            {/* Office Image */}
+            <div className="relative rounded-2xl overflow-hidden shadow-lg mb-8">
               <img src="/images/kontakt-buero.jpg" alt="Hugo CC UG Büro" className="w-full h-48 object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-hugo-navy/60 to-transparent" />
               <div className="absolute bottom-4 left-4 text-white">
@@ -135,9 +138,10 @@ export default function Contact() {
               </div>
             </div>
 
+            {/* Contact Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {contactInfos.map((info, index) => (
-                <div key={index} className="bg-white rounded-xl p-5 shadow-sm hover:shadow-hugo transition-shadow duration-300">
+                <div key={index} className="bg-white rounded-xl p-5 shadow-lg hover:shadow-xl transition-all duration-300">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 bg-hugo-teal/10 rounded-lg flex items-center justify-center flex-shrink-0">
                       <info.icon className="w-5 h-5 text-hugo-teal" />
@@ -145,12 +149,12 @@ export default function Contact() {
                     <div>
                       <p className="text-sm font-semibold text-hugo-navy mb-1">{info.title}</p>
                       {info.href ? (
-                        <a href={info.href} className="text-sm text-hugo-navy/70 hover:text-hugo-teal transition-colors whitespace-pre-line block">{info.content}</a>
+                        <a href={info.href} className="text-sm text-gray-600 hover:text-hugo-teal transition-colors whitespace-pre-line block">{info.content}</a>
                       ) : (
-                        <p className="text-sm text-hugo-navy/70 whitespace-pre-line">{info.content}</p>
+                        <p className="text-sm text-gray-600 whitespace-pre-line">{info.content}</p>
                       )}
                       {info.subContent && info.subHref && (
-                        <a href={info.subHref} className="text-sm text-hugo-navy/70 hover:text-hugo-teal transition-colors flex items-center gap-1 mt-1">
+                        <a href={info.subHref} className="text-sm text-gray-600 hover:text-hugo-teal transition-colors flex items-center gap-1 mt-1">
                           <Smartphone className="w-3 h-3" />{info.subContent}
                         </a>
                       )}
@@ -160,7 +164,8 @@ export default function Contact() {
               ))}
             </div>
 
-            <div className="bg-hugo-navy rounded-xl p-6 text-white">
+            {/* Quick Contact CTA */}
+            <div className="bg-gradient-to-r from-hugo-navy to-hugo-navy/90 rounded-2xl p-8 text-white">
               <h4 className="font-bold text-lg mb-2">Schneller Kontakt</h4>
               <p className="text-white/70 text-sm mb-4">Rufen Sie uns direkt an für ein unverbindliches Beratungsgespräch.</p>
               <div className="flex flex-col sm:flex-row gap-3">

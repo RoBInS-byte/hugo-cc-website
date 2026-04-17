@@ -36,32 +36,38 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="leistungen" ref={sectionRef} className="py-24 bg-white">
-      <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-20">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className={`inline-flex items-center gap-2 px-4 py-2 bg-hugo-teal/10 rounded-full mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <Sparkles className="w-4 h-4 text-hugo-teal" />
-            <span className="text-sm font-medium text-hugo-teal">Unsere Leistungen</span>
+    <section id="leistungen" ref={sectionRef} className="py-20 bg-hugo-light">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <div className={`flex items-center justify-center gap-2 mb-3 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <Sparkles className="w-5 h-5 text-hugo-teal" />
+            <span className="text-hugo-teal font-semibold text-sm uppercase tracking-wider">Unsere Leistungen</span>
           </div>
-          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-hugo-navy mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0.1s' }}>
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-hugo-navy mb-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0.1s' }}>
             Vielfältige Dienstleistungen<span className="text-hugo-teal"> aus einer Hand</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
-            <div key={service.id} className={`group relative bg-white rounded-2xl overflow-hidden shadow-hugo hover:shadow-lg transition-all duration-500 hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: `${index * 0.1}s` }}>
+            <div 
+              key={service.id} 
+              className={`group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} 
+              style={{ transitionDelay: `${index * 0.1}s` }}
+            >
               <div className="relative h-48 overflow-hidden">
-                <img src={service.image} alt={service.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <img src={service.image} alt={service.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-hugo-navy/60 to-transparent" />
-                <div className="absolute top-4 left-4 w-12 h-12 bg-white/90 rounded-xl flex items-center justify-center shadow-lg">
-                  <service.icon className="w-6 h-6 text-hugo-teal" />
+                <div className="absolute bottom-4 left-4">
+                  <div className="w-12 h-12 bg-hugo-teal rounded-xl flex items-center justify-center shadow-lg">
+                    <service.icon className="w-6 h-6 text-white" />
+                  </div>
                 </div>
               </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-hugo-navy mb-2 group-hover:text-hugo-teal transition-colors">{service.title}</h3>
-                <p className="text-hugo-navy/60 text-sm mb-3 line-clamp-2">{service.description}</p>
-                <div className="flex flex-wrap gap-1.5 mb-4">
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-hugo-navy mb-3 group-hover:text-hugo-teal transition-colors">{service.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-3">{service.description}</p>
+                <div className="flex flex-wrap gap-1.5">
                   {service.features.map((feature, idx) => (
                     <span key={idx} className="px-2 py-0.5 bg-hugo-light text-hugo-navy/70 text-xs font-medium rounded-full">{feature}</span>
                   ))}
@@ -71,11 +77,12 @@ export default function Services() {
           ))}
         </div>
 
-        <div className={`mt-16 text-center transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0.8s' }}>
+        <div className={`text-center mt-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0.8s' }}>
+          <p className="text-gray-600 mb-4">Benötigen Sie eine individuelle Lösung?</p>
           <a href="#kontakt">
-            <Button className="bg-hugo-navy hover:bg-hugo-teal text-white px-8 py-6 text-lg font-semibold transition-all duration-300">
+            <Button className="inline-flex items-center gap-2 text-hugo-teal font-semibold hover:text-hugo-navy transition-colors bg-transparent hover:bg-transparent">
               Kontaktieren Sie uns
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <ArrowRight className="w-5 h-5" />
             </Button>
           </a>
         </div>
