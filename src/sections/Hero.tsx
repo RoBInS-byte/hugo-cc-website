@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [hasEnded, setHasEnded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -19,11 +20,32 @@ export default function Hero() {
     video.play().catch(() => {});
   }, []);
 
+  // Listen for video end
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleEnded = () => {
+      setHasEnded(true);
+      video.pause();
+    };
+
+    video.addEventListener('ended', handleEnded);
+    return () => video.removeEventListener('ended', handleEnded);
+  }, []);
+
   const handleVideoToggle = () => {
     const video = videoRef.current;
     if (!video) return;
 
-    if (isMuted) {
+    if (hasEnded) {
+      // Restart video from beginning
+      video.currentTime = 0;
+      video.muted = false;
+      setIsMuted(false);
+      setHasEnded(false);
+      video.play().catch(() => {});
+    } else if (isMuted) {
       video.muted = false;
       setIsMuted(false);
       video.play().catch(() => {});
@@ -171,7 +193,6 @@ export default function Hero() {
                   src="/images/HugoMaskottechen.mp4"
                   muted={isMuted}
                   playsInline
-                  loop
                   autoPlay
                   className="w-full max-w-[400px] h-auto block"
                 />
@@ -184,12 +205,19 @@ export default function Hero() {
                   absolute -bottom-4 left-1/2 transform -translate-x-1/2
                   flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm
                   transition-all duration-300 hover:scale-105 shadow-lg
-                  ${isMuted 
-                    ? 'bg-gradient-to-r from-hugo-gold to-yellow-500 text-hugo-navy hover:from-yellow-400 hover:to-yellow-300' 
-                    : 'bg-hugo-teal text-white hover:bg-hugo-teal/90'}
+                  ${hasEnded
+                    ? 'bg-gradient-to-r from-hugo-gold to-yellow-500 text-hugo-navy hover:from-yellow-400 hover:to-yellow-300'
+                    : isMuted 
+                      ? 'bg-gradient-to-r from-hugo-gold to-yellow-500 text-hugo-navy hover:from-yellow-400 hover:to-yellow-300' 
+                      : 'bg-hugo-teal text-white hover:bg-hugo-teal/90'}
                 `}
               >
-                {isMuted ? (
+                {hasEnded ? (
+                  <>
+                    <Volume2 className="w-5 h-5" />
+                    <span>Nochmal abspielen</span>
+                  </>
+                ) : isMuted ? (
                   <>
                     <VolumeX className="w-5 h-5" />
                     <span>Hugo spricht!</span>
